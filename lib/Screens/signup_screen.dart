@@ -48,7 +48,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         password: _passwordcontroller.text,
         bio: _biocontroller.text,
         file: _image!);
-    if (res != 'Succss') {
+    if (res != 'Success') {
       showSnackbar(res, context);
     }
     setState(() {
