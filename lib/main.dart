@@ -5,12 +5,17 @@ import 'package:flutter/material.dart';
 //import 'package:insta/Responsive%20Design/web_screen_layout.dart';
 import 'package:insta/Screens/login_screen.dart';
 import 'package:insta/utils/colors.dart';
-//import 'firebase_options.dart';
 
-//options: DefaultFirebaseOptions.currentPlatform,
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(
+      options: const FirebaseOptions(
+    apiKey: 'AIzaSyAd9zisF0N3Z30uFduvtn2NmqGvft5UKIQ',
+    appId: '1:292547527158:android:6295a81bf14f4e107e07d7',
+    messagingSenderId: '1:292547527158:android:6295a81bf14f4e107e07d7',
+    projectId: 'insta-69158',
+    storageBucket: 'insta-69158.appspot.com',
+  ));
   runApp(const MyApp());
 }
 
