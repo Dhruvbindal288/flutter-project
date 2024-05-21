@@ -1,5 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:insta/Responsive%20Design/mobile_screen_layout.dart';
+import 'package:insta/Responsive%20Design/responsive_screen_layout.dart';
+import 'package:insta/Responsive%20Design/web_screen_layout.dart';
 //import 'package:insta/Responsive%20Design/mobile_screen_layout.dart';
 //import 'package:insta/Responsive%20Design/responsive_screen_layout.dart';
 //import 'package:insta/Responsive%20Design/web_screen_layout.dart';
@@ -25,14 +29,36 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Instagram',
-        theme: ThemeData.dark()
-            .copyWith(scaffoldBackgroundColor: mobileBackgroundColor),
-        // home: const ResponsiveDesignLayout(
-        //   mobileScreenlayout: MobileScreenLayout(),
-        //   webScreenlayout: WebScreenLayout(),
-        // ),
-        home: const LoginScreen());
+      debugShowCheckedModeBanner: false,
+      title: 'Instagram',
+      theme: ThemeData.dark()
+          .copyWith(scaffoldBackgroundColor: mobileBackgroundColor),
+      home: StreamBuilder(
+        stream: FirebaseAuth.instance.authStateChanges(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.active) {
+            if (snapshot.hasData) {
+              return const ResponsiveDesignLayout(
+                mobileScreenlayout: MobileScreenLayout(),
+                webScreenlayout: WebScreenLayout(),
+              );
+            }
+            if (snapshot.hasError) {
+              return const Center(
+                child: Text('Some error occurred! Please restart your app.'),
+              );
+            }
+          }
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(
+              child: CircularProgressIndicator(
+                color: primaryColor,
+              ),
+            );
+          }
+          return const LoginScreen();
+        },
+      ),
+    );
   }
 }

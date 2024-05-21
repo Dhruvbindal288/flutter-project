@@ -1,9 +1,10 @@
 import 'dart:typed_data';
-
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:insta/Resources/auth_method.dart';
-
+import 'package:insta/Responsive%20Design/mobile_screen_layout.dart';
+import 'package:insta/Responsive%20Design/responsive_screen_layout.dart';
+import 'package:insta/Responsive%20Design/web_screen_layout.dart';
 import 'package:insta/Widgets/text_field.dart';
 import 'package:insta/utils/colors.dart';
 import 'package:insta/utils/utils.dart';
@@ -50,6 +51,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
         file: _image!);
     if (res != 'Success') {
       showSnackbar(res, context);
+    } else {
+      Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+        return const ResponsiveDesignLayout(
+          mobileScreenlayout: MobileScreenLayout(),
+          webScreenlayout: WebScreenLayout(),
+        );
+      }));
     }
     setState(() {
       isLoading = false;
