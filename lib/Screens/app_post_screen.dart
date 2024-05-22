@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:insta/utils/colors.dart';
 
 class AddPostScreen extends StatefulWidget {
